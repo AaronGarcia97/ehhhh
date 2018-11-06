@@ -16,6 +16,7 @@ SELECT password FROM Cliente WHERE username = "AaronUser";
 -- Crear cliente --
 INSERT INTO Cliente VALUES ('U333333333', 'AaronUser2', 'AaronsPasswd2', 'Aaron2', 'Garcia2', 'M', '1997-12-20 12:16:10');
 
+
 -- Leer info --
 SELECT * FROM Cliente;
 SELECT * FROM Taxista;
