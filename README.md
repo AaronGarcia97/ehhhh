@@ -1,9 +1,22 @@
 # ehhhh
 by [Aaron](https://github.com/AaronGarcia97), [Daniel](https://github.com/) and, [David](https://github.com/davidmtzv14)
 
+
+### How To
+```
+# RUN SERVER (locally)
+export FLASK_APP=server.py
+flask run
+
+# RUN SERVER (public)
+export FLASK_APP=server.py
+flask run --host=0.0.0.0
+```
+
+
 ### Tools
-[DRIVE for Documents Control](https://drive.google.com/open?id=1YglsGfWJlcRiR-pK74-p_8k_tYZnN0bH)     
-[GITHUB for Version Control](https://github.com/AaronGarcia97/ehhhh)    
+[DRIVE for Documents Control](https://drive.google.com/open?id=1YglsGfWJlcRiR-pK74-p_8k_tYZnN0bH)
+[GITHUB for Version Control](https://github.com/AaronGarcia97/ehhhh)
 [TRELLO for Activity Control](https://trello.com/b/szEzqH42/ehhhh-proyectofinal)
 
 ### Reglamento
@@ -40,4 +53,4 @@ DANIEL TIJERINA GONZÁLEZ
 - Nombre: Daniel Tijerina González
 - Correo: A01281870@itesm.mx A01281870@itesm.mx
 - WhatsApp: +5218114981666
-- Rol Asignado: Líder de Documentos, Desarrollador 
+- Rol Asignado: Líder de Documentos, Desarrollador
