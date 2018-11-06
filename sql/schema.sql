@@ -26,14 +26,14 @@ CREATE TABLE Cliente(
   firstName VARCHAR(10),
 	lastName VARCHAR(10),
   sex CHAR(1),
-	dateOfBirth DATETIME,
+	dateOfBirth DATE,
 
   PRIMARY KEY (id_cliente)
 	);
 
-INSERT INTO Cliente VALUES ('U111111111', 'GabaUser', 'GabasPasswd', 'Gabriela', 'Corona', 'F', '1999-03-03 09:14:10');
-INSERT INTO Cliente VALUES ('U222222222', 'AnaUser', 'AnasPasswd', 'Ana', 'Corona', 'F', '1999-03-03 09:16:10');
-INSERT INTO Cliente VALUES ('U333333333', 'AaronUser', 'AaronsPasswd', 'Aaron', 'Garcia', 'M', '1997-12-20 12:16:10');
+INSERT INTO Cliente VALUES ('U111111111', 'GabaUser', 'GabasPasswd', 'Gabriela', 'Corona', 'F', '1999-03-03');
+INSERT INTO Cliente VALUES ('U222222222', 'AnaUser', 'AnasPasswd', 'Ana', 'Corona', 'F', '1999-03-03');
+INSERT INTO Cliente VALUES ('U333333333', 'AaronUser', 'AaronsPasswd', 'Aaron', 'Garcia', 'M', '1997-12-20');
 
 DROP TABLE IF EXISTS Admin;
 CREATE TABLE Admin(
@@ -43,13 +43,13 @@ CREATE TABLE Admin(
   firstName VARCHAR(10),
 	lastName VARCHAR(10),
   sex CHAR(1),
-	dateOfBirth DATETIME,
+	dateOfBirth DATE,
 
   PRIMARY KEY (id_admin)
 	);
 
-INSERT INTO Admin VALUES ('A111111111', 'AaronAdmin', 'AaronsPasswd', 'Aaron', 'Garcia', 'M', '1997-12-20 12:16:10');
-INSERT INTO Admin VALUES ('A222222222', 'DanielAdmin', 'DanielsPasswd', 'Daniel', 'Tijerina', 'M', '1997-10-12 10:23:35');
+INSERT INTO Admin VALUES ('A111111111', 'AaronAdmin', 'AaronsPasswd', 'Aaron', 'Garcia', 'M', '1997-12-20');
+INSERT INTO Admin VALUES ('A222222222', 'DanielAdmin', 'DanielsPasswd', 'Daniel', 'Tijerina', 'M', '1997-10-12');
 
 DROP TABLE IF EXISTS MetodoDePago;
 CREATE TABLE MetodoDePago(
@@ -74,15 +74,15 @@ CREATE TABLE Taxista(
   firstName VARCHAR(10),
 	lastName VARCHAR(10),
   sex CHAR(1),
-	dateOfBirth DATETIME,
+	dateOfBirth DATE,
 	id_admin VARCHAR(10) NOT NULL,
 
 	FOREIGN KEY (id_admin) REFERENCES Admin(id_admin),
 	PRIMARY KEY (id_taxista)
 	);
 
-INSERT INTO Taxista VALUES ('T111111111', 'GabaUser', 'GabasPasswd', 'Gabriela', 'Corona', 'F', '1999-03-03 09:14:10', 'A222222222');
-INSERT INTO Taxista VALUES ('T222222222', 'AnaUser', 'AnasPasswd', 'Ana', 'Corona', 'F', '1999-03-03 09:16:10', 'A111111111');
+INSERT INTO Taxista VALUES ('T111111111', 'GabaUser', 'GabasPasswd', 'Gabriela', 'Corona', 'F', '1999-03-03', 'A222222222');
+INSERT INTO Taxista VALUES ('T222222222', 'AnaUser', 'AnasPasswd', 'Ana', 'Corona', 'F', '1999-03-03', 'A111111111');
 
 DROP TABLE IF EXISTS Viaje;
 CREATE TABLE Viaje(
