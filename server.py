@@ -7,6 +7,8 @@ from flask import request
 from flaskext.mysql import MySQL
 from flask_cors import CORS
 
+from register import registerSomeone
+
 app = Flask(__name__)
 mysql = MySQL(app)
 CORS(app)
@@ -70,40 +72,28 @@ def login():
 # If user doesn't exist, create new entry in db with credentials
 @app.route("/register", methods = ['POST'])
 def register():
-    id_char_User = 'U'
-    id_num_User = 100000000
+    id_admin = None
 
     # Connect to db and get cursor
     conn = mysql.connect()
     cursor = conn.cursor()
 
     # Get parameters from post request
-    id_cliente = id_char_User + str(id_num_User)
     username = str(request.args.get('username'))
     password = str(request.args.get('password'))
     firstName = str(request.args.get('firstName'))
     lastName = str(request.args.get('lastName'))
     sex = str(request.args.get('sex'))
     dateArgument = str(request.args.get('date'))
+    registrationType = str(request.args.get('registrationType'))
     date = str(datetime.datetime.strptime(dateArgument , '%Y%m%d').date())
 
-    # Check if user doesnt exist
-    cursor.execute("SELECT * FROM Cliente WHERE username = \"" + username + "\";")
-    dataUser = cursor.fetchone()
+    if ( registrationType == 'T' ) :
+        id_admin = str(request.args.get('id_admin'))
 
+    isCorrect = registerSomeone(username, password, firstName, lastName, sex, date, registrationType, id_admin, cursor)
 
-    if ( dataUser is None ) : # Create user
-        query = "INSERT INTO Cliente VALUES (\'" + id_cliente + "\',\'" + username + "\',\'" + password + "\',\'" + firstName + "\',\'" + lastName + "\',\'" + sex + "\',\'" + date + "\');"
-        print (query)
-        cursor.execute(query)
-        id_num_User = id_num_User + 1
-        print ("User(" + id_cliente + "): " + username + " succesfully created.")
+    if ( isCorrect is not False ) :
         conn.commit()
-        cursor.close()
-        conn.close()
-        return "User(" + id_cliente + "): " + username + " succesfully created."
-    else :
-        print ("User: " + username + " not created.")
-        cursor.close()
-        conn.close()
-        return "User: " + username + " not created."
+
+    return isCorrect
