@@ -8,6 +8,7 @@ from flaskext.mysql import MySQL
 from flask_cors import CORS
 
 from register import registerSomeone
+from login import checkLogin
 
 app = Flask(__name__)
 mysql = MySQL(app)
@@ -45,28 +46,17 @@ def login():
     # Get parameters from post request
     username = str(request.args.get('username'))
     password = str(request.args.get('password'))
+    registrationType = str(request.args.get('registrationType'))
 
-    # Make query and fetch result
-    cursor.execute("SELECT * FROM Cliente WHERE username = \"" + username + "\";")
-    dataUser = cursor.fetchone()
-
-    # Assign db data variables
-    dbUser = str(dataUser[1])
-    dbPassword = str(dataUser[2])
-
-    # Log data
-    print ("User input\n username: " + username + " \n password: " + password)
-    print ("Db data\n username: " + dbUser + " \n password: " + dbPassword)
+    # Receive Json with user data or False if user incorrect
+    isCorrect = checkLogin(username, password, registrationType, cursor)
 
     # Close db connection and cursor
     cursor.close()
     conn.close()
 
-    # Quick validation of correct credentials
-    if (username == dbUser and password == dbPassword) :
-        return "Yes"
+    return isCorrect
 
-    return "No"
 
 # Validates user doesn't exists so it can create it
 # If user doesn't exist, create new entry in db with credentials
