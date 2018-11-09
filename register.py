@@ -1,5 +1,7 @@
 from flaskext.mysql import MySQL
 
+from utility import getTable
+
 id_num = 100000000
 
 # Creates new Client or Admin
@@ -29,13 +31,8 @@ def registerSomeone(username, password, firstName, lastName, sex, date, registra
     id_someone = registrationType + str(id_num)
 
     # Assign correct table
-    if ( registrationType == 'U' ) :
-        table = "Cliente"
-    elif ( registrationType == 'T' ) :
-        table = "Taxista"
-    elif ( registrationType == 'A' ) :
-        table = "Admin"
-    else :
+    table = getTable(registrationType)
+    if ( table == "None") :
         return False
 
     # Check if user doesnt exist
