@@ -10,7 +10,7 @@ def getTable(registrationType) :
     else :
         return "None"
 
-def jsonifySession(data):
+def jsonifyUserSession(data):
         info={}
         info['id']=data[0]
         info['username']=data[1]
@@ -18,4 +18,15 @@ def jsonifySession(data):
         info['name']=data[3]
         info['lastName']=data[4]
         info['sex']=data[5]
-        return json.dumps(info)    
+        return json.dumps(info) 
+
+def jsonifyTaxiSession(data):
+        info={}
+        info['id']=data[0]
+        info['username']=data[1]
+        info['password']=data[2]
+        info['name']=data[3]
+        info['lastName']=data[4]
+        info['sex']=data[5]
+	info['id_admin']=data[6]
+        return json.dumps(info)
