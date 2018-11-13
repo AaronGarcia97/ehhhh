@@ -1,4 +1,5 @@
 import datetime
+import json
 
 from flask import jsonify
 from flask import Flask
@@ -32,7 +33,7 @@ def hello():
     data = cursor.fetchone()
     cursor.close()
     conn.close()
-    return str(data[1])
+    return str(data[1]+'\n')
 
 
 # Validates user exists so it can login
@@ -43,19 +44,30 @@ def login():
     conn = mysql.connect()
     cursor = conn.cursor()
 
+    # Get Json from request
+    req = request.json
+    print("User Request: ")
+    print(req)
+
     # Get parameters from post request
-    username = str(request.args.get('username'))
-    password = str(request.args.get('password'))
-    registrationType = str(request.args.get('registrationType'))
+    username = str(req['username'])
+    password = str(req['password'])
+    registrationType = str(req['registrationType'])
 
     # Receive Json with user data or False if user incorrect
-    isCorrect = checkLogin(username, password, registrationType, cursor)
+    jsonSession = checkLogin(username, password, registrationType, cursor)
+
+    # Returning session print
+    print("Session: \n" + jsonSession)
 
     # Close db connection and cursor
     cursor.close()
     conn.close()
 
-    return isCorrect
+    if( jsonSession is None ) :
+        return "Handle error here pl0x"
+
+    return jsonSession
 
 
 # Validates user doesn't exists so it can create it
