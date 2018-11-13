@@ -31,6 +31,7 @@ CREATE TABLE Cliente(
   PRIMARY KEY (id_cliente)
 	);
 
+INSERT INTO Cliente VALUES ('U000000000', 'admin', 'admin', 'admin', 'admin', 'F', '1999-03-03');
 INSERT INTO Cliente VALUES ('U111111111', 'GabaUser', 'GabasPasswd', 'Gabriela', 'Corona', 'F', '1999-03-03');
 INSERT INTO Cliente VALUES ('U222222222', 'AnaUser', 'AnasPasswd', 'Ana', 'Corona', 'F', '1999-03-03');
 INSERT INTO Cliente VALUES ('U333333333', 'AaronUser', 'AaronsPasswd', 'Aaron', 'Garcia', 'M', '1997-12-20');
