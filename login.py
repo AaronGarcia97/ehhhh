@@ -1,12 +1,15 @@
+import json
+
 from flaskext.mysql import MySQL
 from utility import getTable
+from utility import jsonifyTaxiSession, jsonifyUserSession
 
 def checkLogin(username, password, registrationType, cursor) :
     table = getTable(registrationType)
 
     # Nunca debería entrar aquí
     if( table == "None" ) :
-        return False
+        return json.dumps({}), status.HTTP_500_INTERNAL_SERVER_ERROR
 
     # Create query
     query = "SELECT * FROM " + table + " WHERE username = \"" + username + "\";"
@@ -14,7 +17,7 @@ def checkLogin(username, password, registrationType, cursor) :
     dataUser = cursor.fetchone()
 
     if( dataUser is None ) :
-        return False
+        return json.dumps({}), status.HTTP_500_INTERNAL_SERVER_ERROR
 
     # Assign db data variables
     dbUser = str(dataUser[1])
@@ -27,7 +30,10 @@ def checkLogin(username, password, registrationType, cursor) :
     # Quick validation of correct credentials
     if (username == dbUser and password == dbPassword) :
         # Create JSON with user info for sessions and return it
-        return "Yes"
+        if (registrationType == 'T') :
+            return jsonifyTaxiSession(dataUser)
+
+        return jsonifyUserSession(dataUser)
 
 
-    return "No"
+    return {}
