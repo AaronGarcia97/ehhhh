@@ -32,7 +32,7 @@ def jsonifyTaxiSession(data):
     return json.dumps(info)
 
 def jsonifyViajes(data):
-    info=[]
+    info = []
     for d in data :
         viaje={}
         viaje['id']=d[0]
@@ -44,6 +44,21 @@ def jsonifyViajes(data):
         viaje['id_taxista']=d[6]
         viaje['id_carro']=d[7]
         info.append(viaje)
+
+    return json.dumps(info)
+
+# Function returns json of Users
+def jsonifyUsers(data):
+    info = []
+    for u in data :
+        user={}
+        user['id']=u[0]
+        user['username']=u[1]
+        user['password']=u[2]
+        user['name']=u[3]
+        user['lastName']=u[4]
+        user['sex']=u[5]
+        info.append(user)
 
     return json.dumps(info)
 
