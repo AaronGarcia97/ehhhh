@@ -10,6 +10,7 @@ from flask_cors import CORS
 
 from register import registerSomeone
 from login import checkLogin
+from utility import jsonifyViajes
 
 app = Flask(__name__)
 mysql = MySQL(app)
@@ -80,18 +81,25 @@ def register():
     conn = mysql.connect()
     cursor = conn.cursor()
 
+    # Get Json from request
+    req = request.json
+    print("User Request: ")
+    print(req)
+
     # Get parameters from post request
-    username = str(request.args.get('username'))
-    password = str(request.args.get('password'))
-    firstName = str(request.args.get('firstName'))
-    lastName = str(request.args.get('lastName'))
-    sex = str(request.args.get('sex'))
-    dateArgument = str(request.args.get('date'))
-    registrationType = str(request.args.get('registrationType'))
-    date = str(datetime.datetime.strptime(dateArgument , '%Y%m%d').date())
+    username = str(req['username'])
+    password = str(req['password'])
+    firstName = str(req['firstName'])
+    lastName = str(req['lastName'])
+    sex = str(req['cellphone'])
+    registrationType = str(req['registrationType'])
+
+    # Convert date to database format
+    dateArgument = str(req['date'])
+    date = str(datetime.datetime.strptime(dateArgument , '%Y-%m-%d').date())
 
     if ( registrationType == 'T' ) :
-        id_admin = str(request.args.get('id_admin'))
+        id_admin = str(req['id_admin'])
 
     isCorrect = registerSomeone(username, password, firstName, lastName, sex, date, registrationType, id_admin, cursor)
 
@@ -99,3 +107,64 @@ def register():
         conn.commit()
 
     return isCorrect
+
+
+# Endpoint which returns every Trip, it assumes db never empty
+# Ordered in descending order (Newest first)
+@app.route("/getAllViajes", methods = ['GET'])
+def viajes():
+
+    # Connect to db and get cursor
+    conn = mysql.connect()
+    cursor = conn.cursor()
+
+    # Create query
+    query = "SELECT * FROM Viaje ORDER BY fechaYhora DESC;"
+    cursor.execute(query)
+    queryData = cursor.fetchall()
+
+    print(queryData)
+
+    return jsonifyViajes(queryData)
+
+# Get every trip a user has made, key = username
+# Ordered in descending order (Newest first)
+@app.route("/getViajesFromCliente", methods = ['GET'])
+def viajesCliente():
+
+    # Connect to db and get cursor
+    conn = mysql.connect()
+    cursor = conn.cursor()
+
+    # Get username entered by user, assume username aways exists
+    username = request.args.get('username')
+
+    # Create query which returns viajes from client username
+    query = "SELECT * FROM Viaje WHERE id_cliente = (SELECT id_cliente FROM Cliente WHERE username = " + username + ") ORDER BY fechaYhora DESC;"
+    cursor.execute(query)
+    queryData = cursor.fetchall()
+
+    print(queryData)
+
+    return jsonifyViajes(queryData)
+
+# Get every trip a taxi driver has made, key = username
+# Ordered in descending order (Newest first)
+@app.route("/getViajesFromTaxista", methods = ['GET'])
+def viajesTaxista():
+
+    # Connect to db and get cursor
+    conn = mysql.connect()
+    cursor = conn.cursor()
+
+    # Get username entered by user, assume username aways exists
+    username = request.args.get('username')
+
+    # Create query which returns viajes from client username
+    query = "SELECT * FROM Viaje WHERE id_taxista = (SELECT id_taxista FROM Taxista WHERE username = " + username + ") ORDER BY fechaYhora DESC;"
+    cursor.execute(query)
+    queryData = cursor.fetchall()
+
+    print(queryData)
+
+    return jsonifyViajes(queryData)

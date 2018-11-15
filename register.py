@@ -1,8 +1,8 @@
 from flaskext.mysql import MySQL
 
-from utility import getTable
+from utility import getTable, jsonifySingleID
 
-id_num = 100000000
+id_num = 100000069
 
 # Creates new Client or Admin
 def createClientOrAdmin(table, id_someone, username, password, firstName, lastName, sex, date, cursor) :
@@ -44,9 +44,9 @@ def registerSomeone(username, password, firstName, lastName, sex, date, registra
     if ( queryData is None ) : # Create stuff
         id_num = id_num + 1
         if ( registrationType == 'U' or registrationType == 'A' ) :
-            return createClientOrAdmin(table, id_someone, username, password, firstName, lastName, sex, date, cursor)
+            return jsonifySingleID(createClientOrAdmin(table, id_someone, username, password, firstName, lastName, sex, date, cursor))
         else :
-            return createTaxista(table, id_someone, username, password, firstName, lastName, sex, date, id_admin, cursor)
+            return jsonifySingleID(createTaxista(table, id_someone, username, password, firstName, lastName, sex, date, id_admin, cursor))
 
     # Don't create anything since username already exists
     return False
