@@ -62,6 +62,22 @@ def jsonifyUsers(data):
 
     return json.dumps(info)
 
+# Function that returns json of Taxistas
+def jsonifyTaxistas(data):
+    info = []
+    for t in data :
+        taxista = {}
+        taxista['id']=t[0]
+        taxista['username']=t[1]
+        taxista['password']=t[2]
+        taxista['name']=t[3]
+        taxista['lastName']=t[4]
+        taxista['sex']=t[5]
+        taxista['id_admin']=t[7]
+        info.append(taxista)
+
+    return json.dumps(info)
+
 # Function returns single object json, with object's name
 def jsonifySingleObject(data, object):
     info={}
