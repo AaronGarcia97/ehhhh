@@ -47,7 +47,9 @@ def jsonifyViajes(data):
 
     return json.dumps(info)
 
-def jsonifySingleID(data):
+# Function returns single object json, with object's name
+def jsonifySingleObject(data, object):
     info={}
-    info['id']=data
+    print("Data retrived from db (" + str(object) + "): " + str(data))
+    info[object]=data[0][0]
     return json.dumps(info)
