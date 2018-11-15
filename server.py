@@ -263,6 +263,23 @@ def getUsernameTaxista():
     conn = mysql.connect()
     cursor = conn.cursor()
 
+    # Get id from request
+    id_taxista = request.args.get('id_taxista')
+    print("Taxista ID: ")
+    print(request)
+
+    # Create query
+    query = "SELECT username FROM Taxista WHERE id_taxista = \'" + id_taxista + "\';"
+    cursor.execute(query)
+    queryData = cursor.fetchone()
+
+    print("Retrieved from db: " + str(queryData))
+
+    if( queryData is None ) :
+        return "Error"
+
+    return jsonifySingleObject(queryData, "username")
+
     # Close db connection and cursor
     cursor.close()
     conn.close()
