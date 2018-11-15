@@ -51,5 +51,5 @@ def jsonifyViajes(data):
 def jsonifySingleObject(data, object):
     info={}
     print("Data retrived from db (" + str(object) + "): " + str(data))
-    info[object]=data[0][0]
+    info[object]=data[0]
     return json.dumps(info)
