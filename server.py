@@ -10,7 +10,7 @@ from flask_cors import CORS
 
 from register import registerSomeone, registerViaje
 from login import checkLogin
-from utility import jsonifyViajes, jsonifySingleID
+from utility import jsonifyViajes, jsonifySingleObject
 
 app = Flask(__name__)
 mysql = MySQL(app)
@@ -223,4 +223,46 @@ def createViaje():
     cursor.close()
     conn.close()
 
-    return jsonifySingleID(id_viaje)
+    return jsonifySingleObject(id_viaje, "id")
+
+# Return the username of a Client
+# By it's id
+@app.route("/getUsernameCliente", methods = ['GET'])
+def getUsernameCliente():
+
+    # Connect to db and get cursor
+    conn = mysql.connect()
+    cursor = conn.cursor()
+
+    # Get id from request
+    id_cliente = request.args.get('id_cliente')
+    print("Cliente ID: ")
+    print(request)
+
+    # Create query
+    query = "SELECT username FROM Cliente WHERE id_cliente = \'" + id_cliente + "\';"
+    cursor.execute(query)
+    queryData = cursor.fetchall()
+
+    if( queryData is None ) :
+        return "Error"
+
+    return jsonifySingleObject(queryData, "username")
+
+    # Close db connection and cursor
+    cursor.close()
+    conn.close()
+
+
+# Return username of a Taxista
+# By it's id
+@app.route("/getUsernameTaxista", methods = ['GET'])
+def getUsernameTaxista():
+
+    # Connect to db and get cursor
+    conn = mysql.connect()
+    cursor = conn.cursor()
+
+    # Close db connection and cursor
+    cursor.close()
+    conn.close()
