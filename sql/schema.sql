@@ -27,14 +27,16 @@ CREATE TABLE Cliente(
 	lastName VARCHAR(10),
   sex CHAR(1),
 	dateOfBirth DATE,
+	email VARCHAR(60) NOT NULL UNIQUE,
+	cellphone VARCHAR(10) NOT NULL UNIQUE,
 
   PRIMARY KEY (id_cliente)
 	);
 
-INSERT INTO Cliente VALUES ('U000000000', 'admin', 'admin', 'admin', 'admin', 'F', '1999-03-03');
-INSERT INTO Cliente VALUES ('U111111111', 'GabaUser', 'GabasPasswd', 'Gabriela', 'Corona', 'F', '1999-03-03');
-INSERT INTO Cliente VALUES ('U222222222', 'AnaUser', 'AnasPasswd', 'Ana', 'Corona', 'F', '1999-03-03');
-INSERT INTO Cliente VALUES ('U333333333', 'AaronUser', 'AaronsPasswd', 'Aaron', 'Garcia', 'M', '1997-12-20');
+INSERT INTO Cliente VALUES ('U000000000', 'admin', 'admin', 'admin', 'admin', 'F', '1999-03-03', 'admin@hotmail.com', '2938174637');
+INSERT INTO Cliente VALUES ('U111111111', 'GabaUser', 'GabasPasswd', 'Gabriela', 'Corona', 'F', '1999-03-03', 'daba@hotmail.com', '1293482918');
+INSERT INTO Cliente VALUES ('U222222222', 'AnaUser', 'AnasPasswd', 'Ana', 'Corona', 'F', '1999-03-03', 'ana@hotmail.com', '8123475823');
+INSERT INTO Cliente VALUES ('U333333333', 'AaronUser', 'AaronsPasswd', 'Aaron', 'Garcia', 'M', '1997-12-20', 'aaron@hotmail.com','8180833322');
 
 DROP TABLE IF EXISTS Admin;
 CREATE TABLE Admin(
@@ -45,12 +47,14 @@ CREATE TABLE Admin(
 	lastName VARCHAR(10),
   sex CHAR(1),
 	dateOfBirth DATE,
+	email VARCHAR(60) NOT NULL UNIQUE,
+	cellphone VARCHAR(10) NOT NULL UNIQUE,
 
   PRIMARY KEY (id_admin)
 	);
 
-INSERT INTO Admin VALUES ('A111111111', 'AaronAdmin', 'AaronsPasswd', 'Aaron', 'Garcia', 'M', '1997-12-20');
-INSERT INTO Admin VALUES ('A222222222', 'DanielAdmin', 'DanielsPasswd', 'Daniel', 'Tijerina', 'M', '1997-10-12');
+INSERT INTO Admin VALUES ('A111111111', 'AaronAdmin', 'AaronsPasswd', 'Aaron', 'Garcia', 'M', '1997-12-20', 'aaron@hotmail.com', '1039201849');
+INSERT INTO Admin VALUES ('A222222222', 'DanielAdmin', 'DanielsPasswd', 'Daniel', 'Tijerina', 'M', '1997-10-12', 'daniel@hotmail.com', '5516372839');
 
 DROP TABLE IF EXISTS MetodoDePago;
 CREATE TABLE MetodoDePago(
@@ -77,13 +81,15 @@ CREATE TABLE Taxista(
   sex CHAR(1),
 	dateOfBirth DATE,
 	id_admin VARCHAR(10) NOT NULL,
+	email VARCHAR(60) NOT NULL UNIQUE,
+	cellphone VARCHAR(10) NOT NULL UNIQUE,
 
 	FOREIGN KEY (id_admin) REFERENCES Admin(id_admin),
 	PRIMARY KEY (id_taxista)
 	);
 
-INSERT INTO Taxista VALUES ('T111111111', 'GabaUser', 'GabasPasswd', 'Gabriela', 'Corona', 'F', '1999-03-03', 'A222222222');
-INSERT INTO Taxista VALUES ('T222222222', 'AnaUser', 'AnasPasswd', 'Ana', 'Corona', 'F', '1999-03-03', 'A111111111');
+INSERT INTO Taxista VALUES ('T111111111', 'GabaUser', 'GabasPasswd', 'Gabriela', 'Corona', 'F', '1999-03-03', 'A222222222', 'gaba@hotmail.com', '1920391726');
+INSERT INTO Taxista VALUES ('T222222222', 'AnaUser', 'AnasPasswd', 'Ana', 'Corona', 'F', '1999-03-03', 'A111111111', 'ana@hotmail.com', '1293929189');
 
 DROP TABLE IF EXISTS Viaje;
 CREATE TABLE Viaje(
