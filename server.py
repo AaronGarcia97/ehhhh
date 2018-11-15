@@ -8,9 +8,9 @@ from flask import request
 from flaskext.mysql import MySQL
 from flask_cors import CORS
 
-from register import registerSomeone
+from register import registerSomeone, registerViaje
 from login import checkLogin
-from utility import jsonifyViajes
+from utility import jsonifyViajes, jsonifySingleID
 
 app = Flask(__name__)
 mysql = MySQL(app)
@@ -106,6 +106,10 @@ def register():
     if ( isCorrect is not False ) :
         conn.commit()
 
+    # Close db connection and cursor
+    cursor.close()
+    conn.close()
+
     return isCorrect
 
 
@@ -124,6 +128,10 @@ def viajes():
     queryData = cursor.fetchall()
 
     print(queryData)
+
+    # Close db connection and cursor
+    cursor.close()
+    conn.close()
 
     return jsonifyViajes(queryData)
 
@@ -146,6 +154,10 @@ def viajesCliente():
 
     print(queryData)
 
+    # Close db connection and cursor
+    cursor.close()
+    conn.close()
+
     return jsonifyViajes(queryData)
 
 # Get every trip a taxi driver has made, key = username
@@ -167,4 +179,50 @@ def viajesTaxista():
 
     print(queryData)
 
+    # Close db connection and cursor
+    cursor.close()
+    conn.close()
+
     return jsonifyViajes(queryData)
+
+# Create VIAJE in a desired moment
+# Parameters needed: id_viaje, fechaYhora, destino, origen, costoPorKilometro,
+#                    id_cliente, id_taxista, id_carro
+# Return id of Viaje created
+@app.route("/createViaje", methods = ['POST'])
+def createViaje():
+
+    # Connect to db and get cursor
+    conn = mysql.connect()
+    cursor = conn.cursor()
+
+    # Get Json from request
+    req = request.json
+    print("Viaje Creation Request: ")
+    print(req)
+
+    # Get parameters from post request
+    destino = str(req['destino'])
+    origen = str(req['origen'])
+    costoPorKilometro = str(req['costoPorKilometro'])
+    id_cliente = str(req['id_cliente'])
+    id_taxista = str(req['id_taxista'])
+    id_carro = str(req['id_carro'])
+
+    # FIX DATE ASSIGN RIGHT HERE
+    # fechaYhora = str(req['fechaYhora'])
+    # Normalize date into insertable datetime object
+    # date = str(datetime.datetime.strptime(fechaYhora, '%Y-%m-%d %hh:%mm:%ss').date())
+
+    date = "2018-11-17 17:14:10"
+
+    id_viaje = registerViaje(date, destino, origen, costoPorKilometro, id_cliente, id_taxista, id_carro, cursor)
+
+    # Commit db changes
+    conn.commit()
+
+    # Close db connection and cursor
+    cursor.close()
+    conn.close()
+
+    return jsonifySingleID(id_viaje)

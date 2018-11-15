@@ -50,3 +50,25 @@ def registerSomeone(username, password, firstName, lastName, sex, date, registra
 
     # Don't create anything since username already exists
     return False
+
+# Creates a new Viaje and registers it in the database
+def registerViaje(fechaYhora, destino, origen, costoPorKilometro, id_cliente, id_taxista, id_carro, cursor):
+    global id_num
+
+    # Generate Id
+    id_viaje = 'V' + str(id_num)
+
+    # Register new Viaje with given arguments
+    query = "INSERT INTO Viaje VALUES (\'" + id_viaje + "\',\'" + fechaYhora + "\',\'" + destino + "\',\'" + origen + "\'," + str(costoPorKilometro) + ",\'" + id_cliente + "\',\'" + id_taxista + "\', \'" + id_carro + "\');"
+    cursor.execute(query)
+
+    query2 = "SELECT * FROM Viaje WHERE id_viaje = \"" + id_viaje + "\";"
+    cursor.execute(query2)
+    viajeExists = cursor.fetchone()
+
+    if( viajeExists is not None ) :
+        id_num = id_num + 1
+        print("Viaje(" + id_viaje + "): was created...")
+        return id_viaje
+
+    return "Viaje was not created"
