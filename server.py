@@ -242,7 +242,7 @@ def getUsernameCliente():
     # Create query
     query = "SELECT username FROM Cliente WHERE id_cliente = \'" + id_cliente + "\';"
     cursor.execute(query)
-    queryData = cursor.fetchall()
+    queryData = cursor.fetchone()
 
     if( queryData is None ) :
         return "Error"
