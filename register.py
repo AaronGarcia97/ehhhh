@@ -51,14 +51,14 @@ def registerSomeone(username, password, firstName, lastName, sex, date, registra
     return False
 
 # Creates a new Viaje and registers it in the database
-def registerViaje(fechaYhora, destino, origen, costoPorKilometro, id_cliente, id_taxista, id_carro, cursor):
+def registerViaje(fechaYhora, destino, origen, costoPorKilometro, id_cliente, id_taxista, cursor):
     global id_num
 
     # Generate Id
     id_viaje = 'V' + str(id_num)
 
     # Register new Viaje with given arguments
-    query = "INSERT INTO Viaje VALUES (\'" + id_viaje + "\',\'" + fechaYhora + "\',\'" + destino + "\',\'" + origen + "\'," + str(costoPorKilometro) + ",\'" + id_cliente + "\',\'" + id_taxista + "\', \'" + id_carro + "\');"
+    query = "INSERT INTO Viaje VALUES (\'" + id_viaje + "\',\'" + fechaYhora + "\',\'" + destino + "\',\'" + origen + "\'," + str(costoPorKilometro) + ",\'" + id_cliente + "\',\'" + id_taxista + "\');"
     cursor.execute(query)
 
     query2 = "SELECT * FROM Viaje WHERE id_viaje = \"" + id_viaje + "\";"

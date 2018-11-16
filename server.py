@@ -169,7 +169,7 @@ def viajesTaxista():
 
 # Create VIAJE in a desired moment
 # Parameters needed: id_viaje, fechaYhora, destino, origen, costoPorKilometro,
-#                    id_cliente, id_taxista, id_carro
+#                    id_cliente, id_taxista
 # Return id of Viaje created
 @app.route("/createViaje", methods = ['POST'])
 def createViaje():
@@ -189,14 +189,13 @@ def createViaje():
     costoPorKilometro = str(req['costoPorKilometro'])
     id_cliente = str(req['id_cliente'])
     id_taxista = str(req['id_taxista'])
-    id_carro = str(req['id_carro'])
     fechaYhora = str(req['fechaYhora'])
 
     # Normalize date into insertable datetime object, date must be receive in format below
     # 2018-11-17 17:14:10
     date = str(datetime.datetime.strptime(fechaYhora, '%Y-%m-%d %H:%M:%S').date())
 
-    id_viaje = registerViaje(date, destino, origen, costoPorKilometro, id_cliente, id_taxista, id_carro, cursor)
+    id_viaje = registerViaje(date, destino, origen, costoPorKilometro, id_cliente, id_taxista, cursor)
 
     # Commit db changes
     conn.commit()
