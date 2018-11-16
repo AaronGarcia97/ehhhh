@@ -115,28 +115,6 @@ def register():
     return isCorrect
 
 
-# Endpoint which returns every Trip, it assumes db never empty
-# Ordered in descending order (Newest first)
-@app.route("/getAllViajes", methods = ['GET'])
-def viajes():
-
-    # Connect to db and get cursor
-    conn = mysql.connect()
-    cursor = conn.cursor()
-
-    # Create query
-    query = "SELECT * FROM Viaje ORDER BY fechaYhora DESC;"
-    cursor.execute(query)
-    queryData = cursor.fetchall()
-
-    print(queryData)
-
-    # Close db connection and cursor
-    cursor.close()
-    conn.close()
-
-    return jsonifyViajes(queryData)
-
 # Get every trip a user has made, key = username
 # Ordered in descending order (Newest first)
 @app.route("/getViajesFromCliente", methods = ['GET'])
@@ -150,7 +128,7 @@ def viajesCliente():
     username = request.args.get('username')
 
     # Create query which returns viajes from client username
-    query = "SELECT * FROM Viaje WHERE id_cliente = (SELECT id_cliente FROM Cliente WHERE username = " + username + ") ORDER BY fechaYhora DESC;"
+    query = "SELECT * FROM Viaje WHERE id_cliente = (SELECT id_cliente FROM Cliente WHERE username = \'" + username + "\') ORDER BY fechaYhora DESC;"
     cursor.execute(query)
     queryData = cursor.fetchall()
 
@@ -175,7 +153,7 @@ def viajesTaxista():
     username = request.args.get('username')
 
     # Create query which returns viajes from client username
-    query = "SELECT * FROM Viaje WHERE id_taxista = (SELECT id_taxista FROM Taxista WHERE username = " + username + ") ORDER BY fechaYhora DESC;"
+    query = "SELECT * FROM Viaje WHERE id_taxista = (SELECT id_taxista FROM Taxista WHERE username = \'" + username + "\') ORDER BY fechaYhora DESC;"
     cursor.execute(query)
     queryData = cursor.fetchall()
 
@@ -257,7 +235,7 @@ def getUsernameWithID():
     conn.close()
 
     if( queryData is None ) :
-        return "Error"
+        return "Error, User doesn't exist."
 
     return jsonifySingleObject(queryData, "id")
 
@@ -300,3 +278,25 @@ def getAllTaxistas():
 
     # Return json with list of taxistas
     return jsonifyTaxistas(queryData)
+
+# Endpoint which returns every Trip, it assumes db never empty
+# Ordered in descending order (Newest first)
+@app.route("/getAllViajes", methods = ['GET'])
+def viajes():
+
+    # Connect to db and get cursor
+    conn = mysql.connect()
+    cursor = conn.cursor()
+
+    # Create query
+    query = "SELECT * FROM Viaje ORDER BY fechaYhora DESC;"
+    cursor.execute(query)
+    queryData = cursor.fetchall()
+
+    print(queryData)
+
+    # Close db connection and cursor
+    cursor.close()
+    conn.close()
+
+    return jsonifyViajes(queryData)

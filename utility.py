@@ -54,6 +54,7 @@ def jsonifyViajes(data):
 # Function returns json of Users
 def jsonifyUsers(data):
     info = []
+    print("Data retrived from db(users): " + str(data))
     for u in data :
         user={}
         user['id']=u[0]
@@ -62,8 +63,9 @@ def jsonifyUsers(data):
         user['name']=u[3]
         user['lastName']=u[4]
         user['sex']=u[5]
-        user['email']=u[6]
-        user['cellphone']=u[7]
+        user['date']=str(u[6])
+        user['email']=u[7]
+        user['cellphone']=u[8]
         info.append(user)
 
     return json.dumps(info)
