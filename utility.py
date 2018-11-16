@@ -18,6 +18,8 @@ def jsonifyUserSession(data):
     info['name']=data[3]
     info['lastName']=data[4]
     info['sex']=data[5]
+    info['email']=data[6]
+    info['cellphone']=data[7]
     return json.dumps(info)
 
 def jsonifyTaxiSession(data):
@@ -29,6 +31,8 @@ def jsonifyTaxiSession(data):
     info['lastName']=data[4]
     info['sex']=data[5]
     info['id_admin']=data[6]
+    info['email']=data[7]
+    info['cellphone']=data[8]
     return json.dumps(info)
 
 def jsonifyViajes(data):
@@ -58,6 +62,8 @@ def jsonifyUsers(data):
         user['name']=u[3]
         user['lastName']=u[4]
         user['sex']=u[5]
+        user['email']=u[6]
+        user['cellphone']=u[7]
         info.append(user)
 
     return json.dumps(info)
@@ -74,6 +80,8 @@ def jsonifyTaxistas(data):
         taxista['lastName']=t[4]
         taxista['sex']=t[5]
         taxista['id_admin']=t[7]
+        taxista['email']=t[8]
+        taxista['cellphone']=t[9]
         info.append(taxista)
 
     return json.dumps(info)
@@ -82,5 +90,5 @@ def jsonifyTaxistas(data):
 def jsonifySingleObject(data, object):
     info={}
     print("Data retrived from db (" + str(object) + "): " + str(data))
-    info[object]=data[0]
+    info[object]=data
     return json.dumps(info)

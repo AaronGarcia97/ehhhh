@@ -5,8 +5,8 @@ from utility import getTable, jsonifySingleObject
 id_num = 100000069
 
 # Creates new Client or Admin
-def createClientOrAdmin(table, id_someone, username, password, firstName, lastName, sex, date, cursor) :
-    query = "INSERT INTO " + table + " VALUES (\'" + id_someone + "\',\'" + username + "\',\'" + password + "\',\'" + firstName + "\',\'" + lastName + "\',\'" + sex + "\',\'" + date + "\');"
+def createClientOrAdmin(table, id_someone, username, password, firstName, lastName, sex, date, email, cellphone, cursor) :
+    query = "INSERT INTO " + table + " VALUES (\'" + id_someone + "\',\'" + username + "\',\'" + password + "\',\'" + firstName + "\',\'" + lastName + "\',\'" + sex + "\',\'" + date + "\',\'" + email + "\',\'" + cellphone + "\');"
     print (table + ":\n" + query)
     cursor.execute(query)
     print ("User(" + id_someone + "): " + username + " succesfully created.")
@@ -15,8 +15,8 @@ def createClientOrAdmin(table, id_someone, username, password, firstName, lastNa
 
 
 # Creates new Taxista
-def createTaxista(table, id_someone, username, password, firstName, lastName, sex, date, id_admin, cursor) :
-    query = "INSERT INTO " + table + " VALUES (\'" + id_someone + "\',\'" + username + "\',\'" + password + "\',\'" + firstName + "\',\'" + lastName + "\',\'" + sex + "\',\'" + date + "\',\'" + id_admin + "\');"
+def createTaxista(table, id_someone, username, password, firstName, lastName, sex, date, id_admin, email, cellphone, cursor) :
+    query = "INSERT INTO " + table + " VALUES (\'" + id_someone + "\',\'" + username + "\',\'" + password + "\',\'" + firstName + "\',\'" + lastName + "\',\'" + sex + "\',\'" + date + "\',\'" + id_admin + "\',\'" + email + "\',\'" + cellphone + "\');"
     print (table + ":\n" + query)
     cursor.execute(query)
     print ("User(" + id_someone + "): " + username + " succesfully created.")
@@ -25,7 +25,7 @@ def createTaxista(table, id_someone, username, password, firstName, lastName, se
 
 # Handles which function to call in order to register new user of any type correctly
 # (types: Client, Taxista, Admin)
-def registerSomeone(username, password, firstName, lastName, sex, date, registrationType, id_admin, cursor):
+def registerSomeone(username, password, firstName, lastName, sex, date, registrationType, id_admin, email, cellphone, cursor):
     global id_num
     table = ""
     id_someone = registrationType + str(id_num)
@@ -40,13 +40,12 @@ def registerSomeone(username, password, firstName, lastName, sex, date, registra
     cursor.execute(query)
     queryData = cursor.fetchone()
 
-    print ("Im here")
     if ( queryData is None ) : # Create stuff
         id_num = id_num + 1
         if ( registrationType == 'U' or registrationType == 'A' ) :
-            return jsonifySingleObject(createClientOrAdmin(table, id_someone, username, password, firstName, lastName, sex, date, cursor), "id")
+            return jsonifySingleObject(createClientOrAdmin(table, id_someone, username, password, firstName, lastName, sex, date, email, cellphone, cursor), "id")
         else :
-            return jsonifySingleObject(createTaxista(table, id_someone, username, password, firstName, lastName, sex, date, id_admin, cursor), "id")
+            return jsonifySingleObject(createTaxista(table, id_someone, username, password, firstName, lastName, sex, date, id_admin, email, cellphone, cursor), "id")
 
     # Don't create anything since username already exists
     return False

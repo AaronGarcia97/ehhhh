@@ -91,7 +91,9 @@ def register():
     password = str(req['password'])
     firstName = str(req['firstName'])
     lastName = str(req['lastName'])
-    sex = str(req['cellphone'])
+    sex = str(req['sex'])
+    email = str(req['email'])
+    cellphone = str(req['cellphone'])
     registrationType = str(req['registrationType'])
 
     # Convert date to database format
@@ -101,7 +103,7 @@ def register():
     if ( registrationType == 'T' ) :
         id_admin = str(req['id_admin'])
 
-    isCorrect = registerSomeone(username, password, firstName, lastName, sex, date, registrationType, id_admin, cursor)
+    isCorrect = registerSomeone(username, password, firstName, lastName, sex, date, registrationType, id_admin, email, cellphone, cursor)
 
     if ( isCorrect is not False ) :
         conn.commit()
