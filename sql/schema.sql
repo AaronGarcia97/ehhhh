@@ -83,13 +83,15 @@ CREATE TABLE Taxista(
 	id_admin VARCHAR(10) NOT NULL,
 	email VARCHAR(60) NOT NULL UNIQUE,
 	cellphone VARCHAR(10) NOT NULL UNIQUE,
+	id_carro VARCHAR(10) NOT NULL,
 
 	FOREIGN KEY (id_admin) REFERENCES Admin(id_admin),
+	FOREIGN KEY (id_carro) REFERENCES Carro(id_carro),
 	PRIMARY KEY (id_taxista)
 	);
 
-INSERT INTO Taxista VALUES ('T111111111', 'GabaUser', 'GabasPasswd', 'Gabriela', 'Corona', 'F', '1999-03-03', 'A222222222', 'gaba@hotmail.com', '1920391726');
-INSERT INTO Taxista VALUES ('T222222222', 'AnaUser', 'AnasPasswd', 'Ana', 'Corona', 'F', '1999-03-03', 'A111111111', 'ana@hotmail.com', '1293929189');
+INSERT INTO Taxista VALUES ('T111111111', 'GabaUser', 'GabasPasswd', 'Gabriela', 'Corona', 'F', '1999-03-03', 'A222222222', 'gaba@hotmail.com', '1920391726', 'C111111111');
+INSERT INTO Taxista VALUES ('T222222222', 'AnaUser', 'AnasPasswd', 'Ana', 'Corona', 'F', '1999-03-03', 'A111111111', 'ana@hotmail.com', '1293929189', 'C222222222');
 
 DROP TABLE IF EXISTS Viaje;
 CREATE TABLE Viaje(
@@ -100,16 +102,14 @@ CREATE TABLE Viaje(
 	costoPorKilometro SMALLINT NOT NULL,
 	id_cliente VARCHAR(10) NOT NULL,
 	id_taxista VARCHAR(10) NOT NULL,
-	id_carro VARCHAR(10) NOT NULL,
 
 	FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
 	FOREIGN KEY (id_taxista) REFERENCES Taxista(id_taxista),
-	FOREIGN KEY (id_carro) REFERENCES Carro(id_carro),
 	PRIMARY KEY (id_viaje)
 	);
 
-INSERT INTO Viaje VALUES ('V111111111', '2018-10-17 14:14:10', 'Valle Oriente', 'Garza Sada', 10, 'U111111111', 'T222222222', 'C333333333');
-INSERT INTO Viaje VALUES ('V222222222', '2018-10-17 15:14:10', 'Cumbres', 'Garza Sada', 11, 'U333333333', 'T111111111', 'C111111111');
+INSERT INTO Viaje VALUES ('V111111111', '2018-10-17 14:14:10', 'Valle Oriente', 'Garza Sada', 10, 'U111111111', 'T222222222');
+INSERT INTO Viaje VALUES ('V222222222', '2018-10-17 15:14:10', 'Cumbres', 'Garza Sada', 11, 'U333333333', 'T111111111');
 
 
 DROP TABLE IF EXISTS Encuesta;
