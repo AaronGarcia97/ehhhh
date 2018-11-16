@@ -15,17 +15,17 @@ def createClientOrAdmin(table, id_someone, username, password, firstName, lastNa
 
 
 # Creates new Taxista
-def createTaxista(table, id_someone, username, password, firstName, lastName, sex, date, id_admin, email, cellphone, cursor) :
-    query = "INSERT INTO " + table + " VALUES (\'" + id_someone + "\',\'" + username + "\',\'" + password + "\',\'" + firstName + "\',\'" + lastName + "\',\'" + sex + "\',\'" + date + "\',\'" + id_admin + "\',\'" + email + "\',\'" + cellphone + "\');"
+def createTaxista(table, id_someone, username, password, firstName, lastName, sex, date, id_admin, email, cellphone, id_carro, cursor) :
+    query = "INSERT INTO " + table + " VALUES (\'" + id_someone + "\',\'" + username + "\',\'" + password + "\',\'" + firstName + "\',\'" + lastName + "\',\'" + sex + "\',\'" + date + "\',\'" + id_admin + "\',\'" + email + "\',\'" + cellphone + "\',\'" + id_carro + "\');"
     print (table + ":\n" + query)
     cursor.execute(query)
-    print ("User(" + id_someone + "): " + username + " succesfully created.")
+    print ("Taxista(" + id_someone + "): " + username + " succesfully created.")
     return id_someone
 
 
 # Handles which function to call in order to register new user of any type correctly
 # (types: Client, Taxista, Admin)
-def registerSomeone(username, password, firstName, lastName, sex, date, registrationType, id_admin, email, cellphone, cursor):
+def registerSomeone(username, password, firstName, lastName, sex, date, registrationType, id_admin, email, cellphone, id_carro, cursor):
     global id_num
     table = ""
     id_someone = registrationType + str(id_num)
@@ -45,7 +45,7 @@ def registerSomeone(username, password, firstName, lastName, sex, date, registra
         if ( registrationType == 'U' or registrationType == 'A' ) :
             return jsonifySingleObject(createClientOrAdmin(table, id_someone, username, password, firstName, lastName, sex, date, email, cellphone, cursor), "id")
         else :
-            return jsonifySingleObject(createTaxista(table, id_someone, username, password, firstName, lastName, sex, date, id_admin, email, cellphone, cursor), "id")
+            return jsonifySingleObject(createTaxista(table, id_someone, username, password, firstName, lastName, sex, date, id_admin, email, cellphone, id_carro, cursor), "id")
 
     # Don't create anything since username already exists
     return False
