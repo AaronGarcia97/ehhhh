@@ -46,7 +46,6 @@ def jsonifyViajes(data):
         viaje['costoPorKilometro']=d[4]
         viaje['id_cliente']=d[5]
         viaje['id_taxista']=d[6]
-        viaje['id_carro']=d[7]
         info.append(viaje)
 
     return json.dumps(info)
