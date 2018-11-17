@@ -36,7 +36,7 @@ def hello():
     conn.close()
     return str(data[1]+'\n')
 
-# NEED TO ADD VALIDATION FOR TAXISTA AND ADMIN
+
 # Validates user exists so it can login
 # If credentials are valid, send home page.
 @app.route("/login", methods = ['POST'])
@@ -77,6 +77,10 @@ def login():
 def register():
     id_admin = None
     id_carro = None
+    marca = None
+    modelo = None
+    placas = None
+    anio = None
 
     # Connect to db and get cursor
     conn = mysql.connect()
@@ -103,9 +107,14 @@ def register():
 
     if ( registrationType == 'T' ) :
         id_admin = str(req['id_admin'])
-        id_carro = str(req['id_carro'])
+        marca = str(req['marca'])
+        modelo = str(req['modelo'])
+        anio = str(req['anio'])
+        placas = str(req['placas'])
 
-    isCorrect = registerSomeone(username, password, firstName, lastName, sex, date, registrationType, id_admin, email, cellphone, id_carro, cursor)
+    isCorrect = registerSomeone(username, password, firstName, lastName, sex,
+                date, registrationType, id_admin, email, cellphone, id_carro,
+                marca, modelo, anio, placas, cursor)
 
     if ( isCorrect is not False ) :
         conn.commit()
