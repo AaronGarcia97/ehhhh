@@ -15,8 +15,8 @@ flask run --host=0.0.0.0
 
 
 ### Tools
-[DRIVE for Documents Control](https://drive.google.com/open?id=1YglsGfWJlcRiR-pK74-p_8k_tYZnN0bH)
-[GITHUB for Version Control](https://github.com/AaronGarcia97/ehhhh)
+[DRIVE for Documents Control](https://drive.google.com/open?id=1YglsGfWJlcRiR-pK74-p_8k_tYZnN0bH)   
+[GITHUB for Version Control](https://github.com/AaronGarcia97/ehhhh)    
 [TRELLO for Activity Control](https://trello.com/b/szEzqH42/ehhhh-proyectofinal)
 
 ### Reglamento
@@ -31,26 +31,3 @@ flask run --host=0.0.0.0
 - Debe haber una junta semanal en las que se resuelvan dudas y se avance al proyecto colaborativamente.
 - Todos los entregables deben de ser revisados por los demás integrantes para cumplir con todos los requisitos.
 - Si algún integrante no cumplo con las anteriores reglas se verá penalizado en la coevaluación final.
-
-### Team Members Info
-
-AARÓN ALEJANDRO GARCÍA GUZMÁN
-- Matricula: A01039597
-- Nombre: Aarón Alejandro García Guzmán
-- Correo: A01039597@itesm.mx A01039597@itesm.mx
-- WhatsApp: +5218180833322
-- Rol Asignado: Meme Creator, Desarrollador, Líder Técnico
-
-DAVID MARTÍNEZ VALDÉS
-- Matricula: A00820087
-- Nombre: David Martínez Valdés
-- Correo: A00820087@itesm.mx A00820087@itesm.mx
-- WhatsApp: +5218120736922
-- Rol Asignado: Líder de design thinking, Líder de diseño, Líder de pruebas, Desarrollador
-
-DANIEL TIJERINA GONZÁLEZ
-- Matricula: A01281870
-- Nombre: Daniel Tijerina González
-- Correo: A01281870@itesm.mx A01281870@itesm.mx
-- WhatsApp: +5218114981666
-- Rol Asignado: Líder de Documentos, Desarrollador
