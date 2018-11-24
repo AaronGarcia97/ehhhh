@@ -1,4 +1,4 @@
 #!/bin/bash
 
-pip install flask
-pip install flask-mysql
+export FLASK_APP=server.py
+flask run --host=0.0.0.0
