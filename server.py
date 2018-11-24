@@ -135,8 +135,11 @@ def viajesCliente():
     conn = mysql.connect()
     cursor = conn.cursor()
 
-    # Get username entered by user, assume username aways exists
-    username = request.args.get('username')
+    # Get Json from request
+    req = request.json
+
+    # Get username from get request
+    username = str(req['username'])
 
     # Create query which returns viajes from client username
     query = "SELECT * FROM Viaje WHERE id_cliente = (SELECT id_cliente FROM Cliente WHERE username = \'" + username + "\') ORDER BY fechaYhora DESC;"
@@ -160,8 +163,11 @@ def viajesTaxista():
     conn = mysql.connect()
     cursor = conn.cursor()
 
-    # Get username entered by user, assume username aways exists
-    username = request.args.get('username')
+    # Get Json from request
+    req = request.json
+
+    # Get username from get request
+    username = str(req['username'])
 
     # Create query which returns viajes from client username
     query = "SELECT * FROM Viaje WHERE id_taxista = (SELECT id_taxista FROM Taxista WHERE username = \'" + username + "\') ORDER BY fechaYhora DESC;"
