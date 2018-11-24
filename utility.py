@@ -18,8 +18,8 @@ def jsonifyUserSession(data):
     info['name']=data[3]
     info['lastName']=data[4]
     info['sex']=data[5]
-    info['email']=data[6]
-    info['cellphone']=data[7]
+    info['email']=data[7]
+    info['cellphone']=data[8]
     return json.dumps(info)
 
 def jsonifyTaxiSession(data):
@@ -30,9 +30,9 @@ def jsonifyTaxiSession(data):
     info['name']=data[3]
     info['lastName']=data[4]
     info['sex']=data[5]
-    info['id_admin']=data[6]
-    info['email']=data[7]
-    info['cellphone']=data[8]
+    info['id_admin']=data[7]
+    info['email']=data[8]
+    info['cellphone']=data[9]
     return json.dumps(info)
 
 def jsonifyViajes(data):

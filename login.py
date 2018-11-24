@@ -9,6 +9,7 @@ def checkLogin(username, password, registrationType, cursor) :
 
     # Nunca debería entrar aquí
     if( table == "None" ) :
+        print("here1")
         return json.dumps({}), status.HTTP_500_INTERNAL_SERVER_ERROR
 
     # Create query
@@ -17,6 +18,7 @@ def checkLogin(username, password, registrationType, cursor) :
     dataUser = cursor.fetchone()
 
     if( dataUser is None ) :
+        print("here2")
         return json.dumps({}), status.HTTP_500_INTERNAL_SERVER_ERROR
 
     # Assign db data variables
