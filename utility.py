@@ -15,7 +15,7 @@ def getTable(registrationType) :
 def getRandomTaxista(data) :
     size = len(data)
     rand = random.uniform(0, 1)
-    index = math.floor(rand * size)
+    index = int(math.floor(rand * size))
     return str(data[index][0])
 
 def getRandomCosto() :
