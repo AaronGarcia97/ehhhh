@@ -45,6 +45,8 @@ def login():
     conn = mysql.connect()
     cursor = conn.cursor()
 
+    print(request)
+
     # Get Json from request
     req = request.json
     print("User Request: ")
