@@ -10,7 +10,7 @@ from flask_cors import CORS
 
 from register import registerSomeone, registerViaje
 from login import checkLogin
-from utility import jsonifyViajes, jsonifySingleObject, getTable, jsonifyUsers, jsonifyTaxistas
+from utility import jsonifyViajes, jsonifySingleObject, getTable, jsonifyUsers, jsonifyTaxistas, getRandomTaxista, getRandomCosto
 
 app = Flask(__name__)
 mysql = MySQL(app)
@@ -203,10 +203,14 @@ def createViaje():
     # Get parameters from post request
     destino = str(req['destino'])
     origen = str(req['origen'])
-    costoPorKilometro = str(req['costoPorKilometro'])
     id_cliente = str(req['id_cliente'])
-    id_taxista = str(req['id_taxista'])
     fechaYhora = str(req['fechaYhora'])
+
+    query = "SELECT id_taxista FROM Taxista;"
+    cursor.execute(query)
+
+    id_taxista = getRandomTaxista(cursor.fetchall())
+    costoPorKilometro = str(getRandomCosto())
 
     # Normalize date into insertable datetime object, date must be receive in format below
     # 2018-11-17 17:14:10

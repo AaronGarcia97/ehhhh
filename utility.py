@@ -1,4 +1,6 @@
 import json
+import random
+import math
 
 def getTable(registrationType) :
     if ( registrationType == 'U' ) :
@@ -9,6 +11,18 @@ def getTable(registrationType) :
         return "Admin"
     else :
         return "None"
+
+def getRandomTaxista(data) :
+    size = len(data)
+    rand = random.uniform(0, 1)
+    index = math.floor(rand * size)
+    return str(data[index][0])
+
+def getRandomCosto() :
+    minCost = 10
+    rand = random.uniform(0, 1)
+    costo = math.floor(rand * minCost + minCost)
+    return str(costo)
 
 def jsonifyUserSession(data):
     info={}
