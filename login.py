@@ -7,7 +7,7 @@ from utility import jsonifyTaxiSession, jsonifyUserSession
 def checkLogin(username, password, registrationType, cursor) :
     table = getTable(registrationType)
 
-    # Nunca debería entrar aquí
+    # Nunca deberia entrar aqui
     if( table == "None" ) :
         print("here1")
         return json.dumps({}), status.HTTP_500_INTERNAL_SERVER_ERROR
